@@ -83,9 +83,12 @@ class ActorNetwork(object):
         #net = tflearn.layers.normalization.batch_normalization(net)
         net = tflearn.activations.relu(net)
         # Final layer weights are init to Uniform[-3e-3, 3e-3]
-        w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
-        out = tflearn.fully_connected(
-            net, self.a_dim, activation='tanh', weights_init=w_init)
+        #w_init = tflearn.initializations.uniform(minval=-0.003, maxval=0.003)
+        #w_init = tflearn.initializations.uniform
+        #out = tflearn.fully_connected(
+        #    net, self.a_dim, activation='tanh', weights_init=w_init)
+        out = tflearn.fully_connected(net, 1)
+        out = tflearn.activations.sigmoid(out)
         # Scale output to -action_bound to action_bound
         scaled_out = tf.multiply(out, self.action_bound)
         return inputs, out, scaled_out
